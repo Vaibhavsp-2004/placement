@@ -1,0 +1,132 @@
+{
+  "theme": "dark",
+  "archetype": "4",
+  "archetype_name": "Swiss & High-Contrast (Vercel/Linear Aesthetic)",
+  "instructions_to_main_agent": "Implement a premium, hyper-minimalist SaaS application. Strictly adhere to dark theme with 1px semi-transparent white borders. Avoid large gradient splashes or heavily saturated cards. Use raw HTML/Tailwind for the marketing landing page bento grids. Use heavily customized Shadcn components for the dashboard. Never center headings unless specifically required for hero layouts. Keep padding generous on marketing pages and dense on dashboards.",
+  "color_palette": {
+    "background": "#050505",
+    "surface": "#0A0A0A",
+    "surface_elevated": "#121212",
+    "primary": "#6366F1",
+    "primary_hover": "#4F46E5",
+    "accent_blue": "#3B82F6",
+    "text_primary": "#EDEDED",
+    "text_secondary": "#A1A1AA",
+    "text_muted": "#52525B",
+    "border": "rgba(255, 255, 255, 0.1)",
+    "border_hover": "rgba(255, 255, 255, 0.2)",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "error": "#EF4444"
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk, sans-serif",
+    "body_font": "IBM Plex Sans, sans-serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter font-medium leading-none",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-medium",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
+      "body": "text-base leading-relaxed text-[#A1A1AA]",
+      "labels": "text-xs uppercase tracking-[0.2em] text-[#52525B] font-medium"
+    }
+  },
+  "layout_and_spacing": {
+    "marketing_pages": {
+      "strategy": "The 'Bento' Grid Protocol - Mode A",
+      "gap": "gap-8 md:gap-12",
+      "padding": "py-24 md:py-32 px-6 md:px-12",
+      "alignment": "Strict left-alignment for copy, intentional asymmetry."
+    },
+    "dashboard_pages": {
+      "strategy": "The 'Control Room' Grid - Mode B",
+      "gap": "gap-4 md:gap-6",
+      "padding": "p-6",
+      "container": "border-collapse style or dense 1px border cards. Minimize inner component padding.",
+      "alignment": "Highly structured, exact column alignments."
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#EDEDED] text-[#050505] hover:bg-white font-medium rounded-md px-4 py-2 transition-colors",
+      "secondary": "bg-transparent border border-white/10 text-[#EDEDED] hover:bg-white/5 rounded-md px-4 py-2 transition-all",
+      "ghost": "bg-transparent text-[#A1A1AA] hover:text-[#EDEDED] hover:bg-white/5 px-4 py-2 rounded-md"
+    },
+    "cards": {
+      "marketing": "bg-[#0A0A0A] border border-white/10 rounded-xl p-8 relative overflow-hidden group",
+      "dashboard": "bg-[#050505] border border-white/10 rounded-lg p-6 shadow-sm"
+    },
+    "navigation": {
+      "style": "Glassmorphism (The 'Crystal' Variant)",
+      "classes": "fixed top-0 w-full z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/10"
+    },
+    "forms_and_inputs": {
+      "style": "bg-transparent border border-white/10 rounded-md focus:border-white/30 focus:ring-1 focus:ring-white/30 text-[#EDEDED] placeholder:text-[#52525B]"
+    }
+  },
+  "surfaces_and_micro_themes": [
+    {
+      "name": "The Tracing Beam",
+      "usage": "High-conversion sections and feature bento grids in marketing.",
+      "implementation": "1px border with a moving gradient mask, blur-md glow."
+    },
+    {
+      "name": "Flat Dashboard Widgets",
+      "usage": "Analytics charts, student progress, AI scores.",
+      "implementation": "Strict 1px border-white/10, bg-[#050505], NO soft shadows, strictly utilitarian."
+    }
+  ],
+  "motion": {
+    "rules": [
+      "Hover states: transform -translate-y-[2px], border color brightens, ultra-smooth ease-out 0.2s.",
+      "Page Load: Framer Motion staggered fade-in + slight slide-up (y: 20 -> 0) for lists/grids.",
+      "Micro-interactions: Buttons slightly scale down on click (scale: 0.98)."
+    ]
+  },
+  "three_d_strategy": {
+    "library": "@react-three/fiber, @react-three/drei",
+    "usage": "Landing Page Hero Background",
+    "description": "Minimalist interactive network nodes using 3D Points or InstancedMesh. Nodes connected by thin, low-opacity lines to represent AI connections and student-company matching. Deep black environment. Do not obscure hero text."
+  },
+  "assets": {
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-width 1.5, strict monochrome, primarily #A1A1AA, hover #EDEDED."
+    },
+    "image_urls": [
+      {
+        "category": "hero_background",
+        "url": "https://images.unsplash.com/photo-1651833826115-7530e72ce504?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxkYXJrJTIwbWluaW1hbGlzdCUyMGFic3RyYWN0JTIwM2QlMjBub2RlcyUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc4NzI3NzY0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract minimalist 3D nodes on dark background, use as hero overlay or fallback pattern."
+      },
+      {
+        "category": "texture_luxury",
+        "url": "https://images.unsplash.com/photo-1529753253655-470be9a42781?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbWluaW1hbGlzdCUyMHRleHR1cmUlMjBsdXh1cnl8ZW58MHx8fHwxNzc4NzI3NzY0fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Subtle dark texture for deep backgrounds, reduce opacity to 10-15%."
+      },
+      {
+        "category": "candidate_portrait_1",
+        "url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBkaXZlcnNlJTIwaGVhZHNob3RzJTIwbWluaW1hbCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc4NzI3NzUzfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Student / Candidate profile avatar"
+      },
+      {
+        "category": "candidate_portrait_2",
+        "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkaXZlcnNlJTIwaGVhZHNob3RzJTIwbWluaW1hbCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc4NzI3NzUzfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Student / Candidate profile avatar"
+      },
+      {
+        "category": "company_office_1",
+        "url": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwdGVjaCUyMG9mZmljZXxlbnwwfHx8fDE3Nzg3Mjc3NTN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern tech office thumbnail for company matching cards"
+      },
+      {
+        "category": "company_office_2",
+        "url": "https://images.unsplash.com/photo-1556761175-4b46a572b786?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwdGVjaCUyMG9mZmljZXxlbnwwfHx8fDE3Nzg3Mjc3NTN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Recruiter profile background or tech office setting"
+      }
+    ]
+  },
+  "testing": {
+    "data_testid_requirement": "All interactive elements (buttons, links, form inputs) MUST use kebab-case data-testid attributes indicating their role."
+  }
+}
