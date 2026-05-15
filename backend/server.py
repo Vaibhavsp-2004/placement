@@ -236,7 +236,12 @@ async def shortlist_candidates(payload: ShortlistRequest, user: dict = Depends(r
     job = await db.jobs.find_one({"id": payload.job_id}, {"_id": 0})
     if not job:
         raise HTTPException(404, "Job not found")
-    students = await db.users.find({"role": "student"}, {"_id": 0, "password_hash": 0}).to_list(500)
+    # Only candidates who applied
+    apps = await db.applications.find({"job_id": payload.job_id}, {"_id": 0}).to_list(1000)
+    applied_ids = [a["user_id"] for a in apps]
+    if not applied_ids:
+        return []
+    students = await db.users.find({"id": {"$in": applied_ids}, "role": "student"}, {"_id": 0, "password_hash": 0}).to_list(1000)
     results: List[CandidateShortlist] = []
     for s in students:
         resume = await db.resumes.find_one({"user_id": s["id"]}, {"_id": 0})
@@ -251,6 +256,61 @@ async def shortlist_candidates(payload: ShortlistRequest, user: dict = Depends(r
         ))
     results.sort(key=lambda x: (x.fit_score, x.ats_score), reverse=True)
     return results
+
+
+# ---------- Applications ----------
+@api.post("/applications/{job_id}")
+async def apply_to_job(job_id: str, user: dict = Depends(require_role("student"))):
+    job = await db.jobs.find_one({"id": job_id}, {"_id": 0})
+    if not job:
+        raise HTTPException(404, "Job not found")
+    existing = await db.applications.find_one({"user_id": user["id"], "job_id": job_id})
+    if existing:
+        raise HTTPException(400, "Already applied to this job")
+    doc = {
+        "id": _uid(),
+        "user_id": user["id"],
+        "job_id": job_id,
+        "status": "applied",
+        "applied_at": _now(),
+    }
+    await db.applications.insert_one(doc)
+    return {"ok": True, "application_id": doc["id"]}
+
+
+@api.delete("/applications/{job_id}")
+async def withdraw_application(job_id: str, user: dict = Depends(require_role("student"))):
+    res = await db.applications.delete_one({"user_id": user["id"], "job_id": job_id})
+    if res.deleted_count == 0:
+        raise HTTPException(404, "Application not found")
+    return {"ok": True}
+
+
+@api.get("/applications/me")
+async def my_applications(user: dict = Depends(require_role("student"))):
+    apps = await db.applications.find({"user_id": user["id"]}, {"_id": 0}).sort("applied_at", -1).to_list(500)
+    # Hydrate with job info
+    job_ids = [a["job_id"] for a in apps]
+    jobs = await db.jobs.find({"id": {"$in": job_ids}}, {"_id": 0}).to_list(500)
+    jmap = {j["id"]: j for j in jobs}
+    out = []
+    for a in apps:
+        j = jmap.get(a["job_id"])
+        out.append({
+            **a,
+            "job_title": j["title"] if j else "(removed)",
+            "company_name": j["company_name"] if j else "—",
+            "location": j["location"] if j else "",
+            "ctc_range": f"{j['ctc_min']}-{j['ctc_max']} LPA" if j else "",
+        })
+    return out
+
+
+@api.get("/applications/job/{job_id}/count")
+async def applications_count(job_id: str):
+    count = await db.applications.count_documents({"job_id": job_id})
+    return {"job_id": job_id, "count": count}
+
 
 
 # ---------- Prediction ----------

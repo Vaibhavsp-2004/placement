@@ -42,7 +42,7 @@ export default function Shortlist() {
       <header>
         <div className="label-eyebrow">/ AI Shortlist</div>
         <h1 className="font-display text-3xl md:text-4xl tracking-tighter mt-2">Candidate ranking</h1>
-        <p className="text-sm text-[#A1A1AA] mt-2">Top candidates by AI fit score combining skills, CGPA, and resume strength.</p>
+        <p className="text-sm text-[#A1A1AA] mt-2">Top applicants for this role, ranked by AI fit score (skills + CGPA + resume strength).</p>
       </header>
 
       <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function Shortlist() {
           <div className="col-span-2 text-right">Skills matched</div>
         </div>
         {loading && <div className="p-8 text-sm text-[#52525B]">Computing fit scores…</div>}
-        {!loading && candidates.length === 0 && <div className="p-8 text-sm text-[#52525B]">No candidates yet.</div>}
+        {!loading && candidates.length === 0 && <div className="p-8 text-sm text-[#52525B]">No applicants yet for this job.</div>}
         {!loading && candidates.map((c) => (
           <div key={c.user_id} className="grid grid-cols-12 px-4 py-3 items-center border-b border-white/5 hover:bg-white/[0.02] text-sm" data-testid={`candidate-${c.user_id}`}>
             <div className="col-span-4 min-w-0">
