@@ -27,7 +27,7 @@ export default function Login() {
     }
   };
 
-  const useDemo = (role) => {
+  const fillDemo = (role) => {
     setEmail(`${role}@demo.com`);
     setPassword("demo1234");
   };
@@ -66,7 +66,7 @@ export default function Login() {
         <div className="label-eyebrow mb-3">Demo accounts</div>
         <div className="grid grid-cols-3 gap-2">
           {["student", "coordinator", "recruiter"].map((r) => (
-            <button key={r} type="button" onClick={() => useDemo(r)} className="btn-secondary text-xs capitalize" data-testid={`demo-${r}-button`}>
+            <button key={r} type="button" onClick={() => fillDemo(r)} className="btn-secondary text-xs capitalize" data-testid={`demo-${r}-button`}>
               {r}
             </button>
           ))}
